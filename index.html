@@ -1053,23 +1053,40 @@ animatedSections.forEach(section => {
 </script>
 
 <!-- FUTURISTIC TECH AUDIO -->
-<!-- FUTURISTIC TECH AUDIO -->
 <audio id="techMusic" loop preload="auto">
   <source src="https://raw.githubusercontent.com/AdarshGarad/Portfolio/main/tunetank-futuristic-tech-electronic-music-348040%20%281%29-1.mp3" type="audio/mpeg">
 </audio>
 
+<button id="musicBtn" style="
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:9999;
+padding:12px 18px;
+border:none;
+border-radius:25px;
+background:#00d9ff;
+color:#00101f;
+font-weight:bold;
+font-size:14px;
+">
+🎵 Play Music
+</button>
+
 <script>
 const techMusic = document.getElementById("techMusic");
+const musicBtn = document.getElementById("musicBtn");
 
-function startTechMusic() {
+musicBtn.addEventListener("click", function () {
   techMusic.volume = 0.18;
-  techMusic.play().catch(() => {});
-  document.removeEventListener("click", startTechMusic);
-  document.removeEventListener("touchstart", startTechMusic);
-}
 
-document.addEventListener("click", startTechMusic);
-document.addEventListener("touchstart", startTechMusic);
+  techMusic.play().then(() => {
+    musicBtn.textContent = "🎵 Music On";
+  }).catch((error) => {
+    console.log("Audio error:", error);
+    musicBtn.textContent = "❌ Audio Error";
+  });
+});
 </script>
 </body>
 </html>
