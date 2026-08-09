@@ -466,6 +466,234 @@ footer{
     font-size:54px;
   }
 }
+  /* ===== FUTURISTIC SPACE ANIMATION ===== */
+
+body {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.10), transparent 30%),
+    #030712;
+}
+
+/* Animated futuristic glow */
+body::before {
+  animation: spaceDrift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes spaceDrift {
+  0% {
+    transform: translate3d(-20px, -10px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(20px, 15px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-10px, 25px, 0) scale(1.02);
+  }
+}
+
+/* Hero entrance */
+.hero-content {
+  animation: heroEntrance 1.2s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(45px) scale(.96);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Hero heading glow */
+.hero h1 {
+  animation: neonPulse 4s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(0, 229, 255, .15),
+      0 0 30px rgba(99, 102, 241, .10);
+  }
+
+  50% {
+    text-shadow:
+      0 0 15px rgba(0, 229, 255, .45),
+      0 0 45px rgba(99, 102, 241, .25);
+  }
+}
+
+/* Floating hero content */
+.hero-content {
+  will-change: transform;
+}
+
+/* Futuristic buttons */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.28),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left .7s ease;
+}
+
+.btn:hover::before {
+  left: 150%;
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow:
+    0 0 20px rgba(0, 229, 255, .25),
+    0 0 50px rgba(99, 102, 241, .12);
+}
+
+/* Glass cards */
+.card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform .45s cubic-bezier(.16,1,.3,1),
+    box-shadow .45s ease,
+    border-color .45s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(0, 229, 255, .07),
+      transparent 60%
+    );
+  transform: translateX(-100%);
+  transition: transform .8s ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 229, 255, .45);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, .35),
+    0 0 30px rgba(0, 229, 255, .10);
+}
+
+.card:hover::before {
+  transform: translateX(100%);
+}
+
+/* Section titles */
+.section-title {
+  animation: titleGlow 5s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow: 0 0 0 rgba(0, 229, 255, 0);
+  }
+
+  50% {
+    text-shadow: 0 0 25px rgba(0, 229, 255, .20);
+  }
+}
+
+/* Navigation glow */
+nav {
+  transition:
+    background .4s ease,
+    box-shadow .4s ease;
+}
+
+nav:hover {
+  box-shadow:
+    0 5px 35px rgba(0, 229, 255, .08);
+}
+
+/* Links */
+.nav-links a {
+  position: relative;
+  transition:
+    color .3s ease,
+    text-shadow .3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(0, 229, 255, .6);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth futuristic selection */
+::selection {
+  background: rgba(0, 229, 255, .25);
+  color: white;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .hero h1 {
+    animation-duration: 5s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+    }
 </style>
 </head>
 
@@ -680,5 +908,124 @@ reveals.forEach(section=>observer.observe(section));
 typeText();
     </script>
 
+
+  <!-- FUTURISTIC SPACE ENGINE -->
+<script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+let mouseX = 0;
+let mouseY = 0;
+
+function resizeSpace() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeSpace();
+window.addEventListener("resize", resizeSpace);
+
+for (let i = 0; i < 180; i++) {
+  stars.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    size: Math.random() * 1.8 + 0.3,
+    speed: Math.random() * 0.35 + 0.05,
+    drift: (Math.random() - 0.5) * 0.15,
+    alpha: Math.random() * 0.7 + 0.2
+  });
+}
+
+document.addEventListener("mousemove", e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function drawSpace() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  stars.forEach(star => {
+    star.y -= star.speed;
+    star.x += star.drift;
+
+    if (star.y < -5) {
+      star.y = canvas.height + 5;
+      star.x = Math.random() * canvas.width;
+    }
+
+    if (star.x < -5) star.x = canvas.width + 5;
+    if (star.x > canvas.width + 5) star.x = -5;
+
+    const dx = star.x - mouseX;
+    const dy = star.y - mouseY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    let glow = star.alpha;
+
+    if (distance < 140) {
+      glow += (1 - distance / 140) * 0.6;
+    }
+
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,229,255,${glow})`;
+    ctx.shadowBlur = distance < 140 ? 12 : 4;
+    ctx.shadowColor = "#00e5ff";
+    ctx.fill();
+  });
+
+  ctx.shadowBlur = 0;
+  requestAnimationFrame(drawSpace);
+}
+
+drawSpace();
+
+/* Floating hero */
+const hero = document.querySelector(".hero-content");
+
+if (hero) {
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
+  document.addEventListener("mousemove", e => {
+    targetX = (e.clientX / window.innerWidth - 0.5) * 10;
+    targetY = (e.clientY / window.innerHeight - 0.5) * 10;
+  });
+
+  function floatHero() {
+    currentX += (targetX - currentX) * 0.04;
+    currentY += (targetY - currentY) * 0.04;
+
+    hero.style.transform =
+      `translate3d(${currentX}px, ${currentY}px, 0)`;
+
+    requestAnimationFrame(floatHero);
+  }
+
+  floatHero();
+}
+
+/* Smooth scroll reveal */
+const animatedSections =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+animatedSections.forEach(section => {
+  revealObserver.observe(section);
+});
+</script>
 </body>
 </html>
