@@ -1026,6 +1026,27 @@ const revealObserver =
 animatedSections.forEach(section => {
   revealObserver.observe(section);
 });
+</script></script>
+
+<!-- FUTURISTIC TECH AUDIO -->
+<audio id="techMusic" loop autoplay preload="auto">
+  <source src="tunetank-futuristic-tech-electronic-music-348040 (1)-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const techMusic = document.getElementById("techMusic");
+
+function startTechMusic() {
+  techMusic.volume = 0.18;
+  techMusic.play().catch(() => {});
+  document.removeEventListener("click", startTechMusic);
+  document.removeEventListener("touchstart", startTechMusic);
+}
+
+document.addEventListener("click", startTechMusic);
+document.addEventListener("touchstart", startTechMusic);
 </script>
+
 </body>
 </html>
+
